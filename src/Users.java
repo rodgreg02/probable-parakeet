@@ -19,9 +19,16 @@ public class Users {
     public Users(String fullName) {
         this.fullName = fullName;
         this.pwd = createPassword();
-        this.hasBookAlready = false;
+        this.hasBookAlready = hasBookAlready;
         this.nameOfBookOwned = "";
         this.role = "Guest";
+        writeUsersDatabase();
+    }
+
+    public Users(){
+        this.fullName = "admin";
+        this.pwd = "admin111";
+        this.role = "Admin";
         writeUsersDatabase();
     }
 
@@ -33,7 +40,7 @@ public class Users {
         }
     }
 
-    public String createPassword() {
+    private String createPassword() {
         String pwd ="";
         Random rnd = new Random();
         for (int i = 0; i < 8; i++) {

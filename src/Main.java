@@ -7,26 +7,11 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        try{
-            File dataStore = new File("Book.txt");
-            if (dataStore.createNewFile()) {
-                System.out.println("No previous database found. Creating a new one.");
-            } else {
-                System.out.println("Loading previous database...");
-            }
-        } catch (IOException e) {
-            System.out.println("Something went terribly wrong");
-        }
-        try{
-            File dataStore = new File("users.txt");
-            if (dataStore.createNewFile()) {
-                System.out.println("No previous user database found. Creating a new one.");
-            } else {
-                System.out.println("Loading previous user database...");
-            }
-        } catch (IOException e) {
-            System.out.println("Something went terribly wrong");
-        }
+        Users admin =new Users();
+
+        FileManager fileCreator = new FileManager();
+        fileCreator.makeFiles();
+
         System.out.println("Hello there! Come for books have ya'? \nNew here? (y/n)");
             Scanner input = new Scanner(System.in);
             String userInput = input.nextLine();
@@ -57,4 +42,10 @@ public class Main {
                     break;
             }
         }
+        private int getAuth(String username, String pwd){
+
+        return 0;
+        }
     }
+
+
