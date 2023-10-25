@@ -1,11 +1,8 @@
-import java.io.BufferedWriter;
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Users {
-
     String fullName;
 
     String pwd;
@@ -22,10 +19,11 @@ public class Users {
         this.hasBookAlready = hasBookAlready;
         this.nameOfBookOwned = "";
         this.role = "Guest";
+        firstCheck(fullName);
         writeUsersDatabase();
     }
 
-    public Users(){
+    public Users() {
         this.fullName = "admin";
         this.pwd = "admin111";
         this.role = "Admin";
@@ -41,7 +39,7 @@ public class Users {
     }
 
     private String createPassword() {
-        String pwd ="";
+        String pwd = "";
         Random rnd = new Random();
         for (int i = 0; i < 8; i++) {
             int password = rnd.nextInt(10);
@@ -51,16 +49,15 @@ public class Users {
     }
 
 
-
-    private void setRole(){
+    private void setRole() {
         System.out.println("ARE YOU ABSOLUTELY 100% SURE YOU WANNA DO THIS?\n(y/n)");
         Scanner input = new Scanner(System.in);
         String userInput = input.next();
-        switch (userInput){
+        switch (userInput) {
             case "y":
-                if(this.role == "Admin"){
+                if (this.role == "Admin") {
                     this.role = "Guest";
-                }else{
+                } else {
                     this.role = "Admin";
                 }
                 break;
@@ -73,16 +70,44 @@ public class Users {
         }
     }
 
-    private void writeUsersDatabase(){
-        try{
+    private void writeUsersDatabase() {
+
+        try {
             BufferedWriter fw = new BufferedWriter(new FileWriter("users.txt", true));
-            fw.write(  this.fullName + "/" + this.pwd );
-            System.out.println("Success! You're now allowed to use the library");
-            fw.newLine();
-            fw.close();
-        }
-        catch(Exception e){
+            File obj = new File("users.txt");
+            Scanner reader = new Scanner(obj);
+            if (fullName != "admin") {
+                fw.write(this.fullName + "/" + this.pwd);
+                fw.newLine();
+                System.out.println("Success! You're now allowed to use the library");
+                fw.close();
+            } else {
+                System.out.println("Oy you scoundrel! You don't belong there!");
+            }
+        } catch (IOException e) {
             System.out.println("Error creating the user login details.");
+        }
+    }
+
+    public void firstCheck(String fullName) {
+        Scanner input = new Scanner(System.in);
+        if (fullName == "admin") {
+            System.out.println("TskTskTsk. You're not an admin you pesky roach");
+            return;
+        } else {
+            try {
+                File obj = new File("users.txt");
+                Scanner reader = new Scanner(obj);
+                while (reader.hasNextLine()) {
+                    if (reader.nextLine().contains(fullName)) {
+                        System.out.println("User already exists. Please use the login page by pressing 'n' on the first page.");
+                        return;
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("oh no");
+            }
+
         }
     }
 

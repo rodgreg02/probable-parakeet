@@ -1,2 +1,12 @@
-package PACKAGE_NAME;public class CheckUserFirst {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class CheckUser {
+
+
+    public void authCheck(){
+
+    }
+
 }
