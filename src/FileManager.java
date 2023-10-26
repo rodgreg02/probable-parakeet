@@ -18,6 +18,7 @@ public class FileManager {
             File dataStore = new File("users.txt");
             if (dataStore.createNewFile()) {
                 System.out.println("No previous user database found. Creating a new one.");
+                Users admin = new Users();
             } else {
                 System.out.println("Loading previous user database...");
             }
