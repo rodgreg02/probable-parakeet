@@ -2,10 +2,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class FileManager {
-    public void makeFiles(){
+    public void makeFiles() {
 
-        try{
-            File dataStore = new File("Book.txt");
+        try {
+            File dataStore = new File("Books.txt");
             if (dataStore.createNewFile()) {
                 System.out.println("No previous database found. Creating a new one.");
             } else {
@@ -14,18 +14,28 @@ public class FileManager {
         } catch (IOException e) {
             System.out.println("Something went terribly wrong");
         }
-        try{
+        try {
             File dataStore = new File("users.txt");
             if (dataStore.createNewFile()) {
                 System.out.println("No previous user database found. Creating a new one.");
-                Users admin = new Users();
+
             } else {
                 System.out.println("Loading previous user database...");
             }
         } catch (IOException e) {
             System.out.println("Something went terribly wrong");
         }
+        try {
+            File dataStore = new File("usrbook.txt");
+            if (dataStore.createNewFile()) {
+                System.out.println("No previous database found. Creating a new one.");
+            } else {
+                System.out.println("Loading previous database...");
+            }
+        } catch (IOException e) {
+            System.out.println("Something went terribly wrong");
 
 
+        }
     }
 }

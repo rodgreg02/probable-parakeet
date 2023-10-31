@@ -11,14 +11,13 @@ public class Users {
 
     String nameOfBookOwned;
 
-    String role;
+    boolean admin1 = false;
 
     public Users(String fullName) {
         this.fullName = fullName;
         this.pwd = createPassword();
         this.hasBook = hasBook;
         this.nameOfBookOwned = "";
-        this.role = "Guest";
         if (firstCheck(fullName) == true) {
             writeUsersDatabase();
         }
@@ -29,14 +28,12 @@ public class Users {
         this.pwd = pwd;
         this.hasBook = hasBook;
         this.nameOfBookOwned = "";
-        this.role = "Guest";
     }
 
     public Users() {
         this.fullName = "admin";
         this.pwd = "admin111";
-        this.role = "Admin";
-        writeUsersDatabase();
+        writeAdmin();
     }
 
     public void changeHasBook() {
@@ -58,56 +55,30 @@ public class Users {
     }
 
 
-    private void setRole() {
-        if(fullName == "admin"){
-        System.out.println("ARE YOU ABSOLUTELY 100% SURE YOU WANNA DO THIS?\n(y/n)");
-        Scanner input = new Scanner(System.in);
-        String userInput = input.next();
-        switch (userInput) {
-            case "y":
-                if (this.role == "Admin") {
-                    this.role = "Guest";
-                } else {
-                    this.role = "Admin";
-                }
-                break;
-            case "n":
-                System.out.println("Good.");
-                break;
-            default:
-                System.out.println("Invalid option");
-                break;
-            }
-        }
-        else {
-            System.out.println("Naughty Naughty");
-        }
-    }
-
     private void writeUsersDatabase() {
-
-        if(this.fullName.equals("admin")){
-            return;
-        }
-        else {
-            try {
-                BufferedWriter fw = new BufferedWriter(new FileWriter("users.txt", true));
-                File obj = new File("users.txt");
-                Scanner reader = new Scanner(obj);
+        try {
+            BufferedWriter fw = new BufferedWriter(new FileWriter("users.txt", true));
+            File obj = new File("users.txt");
+            Scanner reader = new Scanner(obj);
+            if (this.fullName.equals("admin") && admin1 == true) {
+                return;
+            } else {
                 fw.write(this.fullName + "/" + this.pwd);
                 fw.newLine();
                 System.out.println("Success! You're now allowed to use the library");
                 fw.close();
+                if (fullName != "admin") ;
                 System.out.println("Your new ID Number is: " + pwd + "\n!!!!!!!!!!!!!!!!!!Don't lose it!!!!!!!!!!!!!!!!!!");
-            } catch (IOException e) {
-                System.out.println("Error creating the user login details.");
             }
+        } catch (IOException e) {
+            System.out.println("Error creating the user login details.");
         }
     }
 
+
     public boolean firstCheck(String fullName) {
         Scanner input = new Scanner(System.in);
-        if (fullName.equals("admin")) {
+        if (fullName.toLowerCase().trim().equals("admin")) {
             System.out.println("TskTskTsk. You're not an admin you pesky roach");
             return false;
         } else {
@@ -124,7 +95,6 @@ public class Users {
             } catch (FileNotFoundException e) {
                 System.out.println("oh no");
             }
-
         }
         return true;
     }
@@ -150,10 +120,31 @@ public class Users {
             System.out.println("You're not in the database, try registering");
 
         } catch (FileNotFoundException e) {
-            System.out.println("Come on. Don't be trynna get into other peoples accounts");
+            System.out.println("Come on. what even is this shit");
         }
         return false;
     }
 
-
+    public void writeAdmin() {
+        try {
+            BufferedWriter fw = new BufferedWriter(new FileWriter("users.txt", true));
+            File obj = new File("users.txt");
+            try {
+                Scanner reader0 = new Scanner(obj);
+                while (reader0.hasNextLine()) {
+                    if (reader0.nextLine().contains(fullName)) {
+                        reader0.close();
+                        return;
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("oh no");
+            }
+            fw.write(this.fullName + "/" + this.pwd);
+            fw.newLine();
+            fw.close();
+        } catch (IOException g) {
+            System.out.println("Fucking damn it all");
+        }
+    }
 }
