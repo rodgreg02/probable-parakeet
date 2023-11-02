@@ -33,26 +33,18 @@ public class Library {
             File obj = new File("usrbook.txt");
             Scanner reader = new Scanner(obj);
             while (reader.hasNextLine()) {
-                if (reader.nextLine().contains(bookRequested)) {
-                    System.out.println("Sorry, it's already been taken.");
+                String currentLine = reader.nextLine();
+                if (currentLine.contains(bookRequested) || currentLine.contains(this.currentUser)) {
+                    System.out.println("Sorry, you can't have that");
                     return false;
                 }
-                Scanner reader1 = new Scanner(obj);
-        while (reader1.hasNextLine()) {
-            if(reader1.nextLine().contains(this.currentUser)){
-                System.out.println("Only one book per patron at a time!");
-                return false;
-            }
-            else {
-                return true;
             }
         }
-            }
-        } catch (IOException e) {
-            System.out.println("OH GOD IT HURTS");
-        }
-return false;
+    catch(IOException e){
+        System.out.println("OH GOD IT HURTS");
     }
+return true;
+}
 
 
     public void markTaken(String bookName, String userName) {
@@ -98,9 +90,8 @@ return false;
                 }
             }
 
-            System.out.println("Nome removido com sucesso.");
         } catch (IOException e) {
-            System.err.println("Ocorreu um erro de E/S: " + e.getMessage());
+            System.err.println("Whoops");
         }
     }
 
