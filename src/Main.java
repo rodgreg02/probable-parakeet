@@ -1,5 +1,3 @@
-import javax.xml.crypto.Data;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.Console;
 
@@ -127,3 +125,11 @@ public class Main {
         }
     }
 }
+
+/*TODO
+
+Salt and hash pwd
+remove books/admin
+remove users/admin
+Fix spaghetti
+ */
