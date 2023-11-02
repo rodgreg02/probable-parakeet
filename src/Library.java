@@ -20,7 +20,7 @@ public class Library {
             Scanner reader = new Scanner(obj);
             while (reader.hasNextLine()) {
                 String currentLine = reader.nextLine();
-                System.out.println(currentLine);
+                System.out.println(currentLine + "\n");
             }
             reader.close();
         } catch (IOException o) {

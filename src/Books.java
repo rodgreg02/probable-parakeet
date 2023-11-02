@@ -8,7 +8,7 @@ public class Books {
 
     public void writeBooksDatabase(String nameOfBook,String yearOfRelease) {
          try {
-                    BufferedWriter fw = new BufferedWriter(new FileWriter("Books.txt" ));
+                    BufferedWriter fw = new BufferedWriter(new FileWriter("Books.txt",true));
                     File obj = new File("Books.txt");
                     Scanner reader = new Scanner(obj);
                     fw.write(nameOfBook + "/" + yearOfRelease);
