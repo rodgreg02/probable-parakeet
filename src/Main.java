@@ -1,3 +1,5 @@
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.Console;
 
@@ -49,6 +51,7 @@ public class Main {
                             switch (usrInput) {
                                 case "1":
                                     access.displayBooks();
+                                    System.out.println("Input the name of the book:");
                                     String bookRequested = input.nextLine();
                                     if (access.requestBook(bookRequested) == true) {
                                         System.out.print("\033[H\033[2J");
